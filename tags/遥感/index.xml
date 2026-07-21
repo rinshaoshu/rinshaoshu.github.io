@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>遥感 on rinshaoshu</title>
+		<link>https://rinshaoshu.github.io/tags/%E9%81%A5%E6%84%9F/</link>
+		<description>Recent content in 遥感 on rinshaoshu</description>
+		<generator>Hugo</generator>
+		<language>en</language>
+		
+		
+		
+		
+			<lastBuildDate>Tue, 21 Jul 2026 14:00:00 +0800</lastBuildDate>
+		
+			<atom:link href="https://rinshaoshu.github.io/tags/%E9%81%A5%E6%84%9F/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>多模态遥感动态融合的理论与模型</title>
+				<link>https://rinshaoshu.github.io/posts/article-dl/</link>
+				<pubDate>Tue, 21 Jul 2026 14:00:00 +0800</pubDate>
+				<guid>https://rinshaoshu.github.io/posts/article-dl/</guid>
+				<description>&lt;h1 id=&#34;多模态遥感动态融合的理论与模型&#34;&gt;&#xD;&#xA;  多模态遥感动态融合的理论与模型&#xD;&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#%e5%a4%9a%e6%a8%a1%e6%80%81%e9%81%a5%e6%84%9f%e5%8a%a8%e6%80%81%e8%9e%8d%e5%90%88%e7%9a%84%e7%90%86%e8%ae%ba%e4%b8%8e%e6%a8%a1%e5%9e%8b&#34;&gt;&#xD;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xD;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xD;&#xA;  &lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;本文梳理了HSI与Radar多模态土地覆盖分类中动态融合方法的理论基础与模型设计思路。&lt;/p&gt;&#xA;&lt;h2 id=&#34;问题定义&#34;&gt;&#xD;&#xA;  问题定义&#xD;&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#%e9%97%ae%e9%a2%98%e5%ae%9a%e4%b9%89&#34;&gt;&#xD;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xD;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xD;&#xA;  &lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;多模态LCC可建模为多输入单输出分类问题。基于MAP准则：&lt;/p&gt;&#xA;&lt;p&gt;预测标签 = 使 f(y | x_HSI, x_Rad) 最大的类别 y&lt;/p&gt;&#xA;&lt;p&gt;决策级动态融合采用线性加权形式：&lt;/p&gt;&#xA;&lt;p&gt;$$&#xA;f(\mathbf{x}) = \sum_{m \in {\text{HSI}, \text{Rad}}} \lambda_m g_m(\mathbf{x}_m)&#xA;$$&lt;/p&gt;&#xA;&lt;p&gt;其中 $\lambda_m$ 随样本自适应变化。&lt;/p&gt;&#xA;&lt;h2 id=&#34;泛化误差界&#34;&gt;&#xD;&#xA;  泛化误差界&#xD;&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#%e6%b3%9b%e5%8c%96%e8%af%af%e5%b7%ae%e7%95%8c&#34;&gt;&#xD;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xD;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xD;&#xA;  &lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;真实分布未知，只能最小化经验风险。利用损失函数 $\ell$ 的凸性，可得：&lt;/p&gt;&#xA;&lt;p&gt;$$&#xA;\hat{R}(f) \leq \sum_{m} \hat{\mathbb{E}}(\lambda_m) \hat{\mathbb{E}}(\ell_m) + \text{Cov}(\lambda_m, \ell_m)&#xA;$$&lt;/p&gt;&#xA;&lt;p&gt;进一步引入Rademacher复杂度 $\mathfrak{R}_m$，以至少 $1-\delta$ 的概率有：&lt;/p&gt;&#xA;&lt;p&gt;$$&#xA;R(f) \leq \sum_{m} \left[ \hat{\mathbb{E}}(\lambda_m) \hat{\mathbb{E}}(\ell_m) + \hat{\mathbb{E}}(\lambda_m) \mathfrak{R}_m + \text{Cov}(\lambda_m, \ell_m) \right] + 2\sqrt{\frac{\ln(1/\delta)}{2N}}&#xA;$$&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>
