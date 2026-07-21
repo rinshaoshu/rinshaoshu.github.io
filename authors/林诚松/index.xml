@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>林诚松 on rinshaoshu</title>
+		<link>http://localhost:1313/authors/%E6%9E%97%E8%AF%9A%E6%9D%BE/</link>
+		<description>Recent content in 林诚松 on rinshaoshu</description>
+		<generator>Hugo</generator>
+		<language>en</language>
+		
+		
+		
+		
+			<lastBuildDate>Tue, 21 Jul 2026 14:00:00 +0800</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/authors/%E6%9E%97%E8%AF%9A%E6%9D%BE/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>深度学习基础概念速览</title>
+				<link>http://localhost:1313/posts/second-post/</link>
+				<pubDate>Tue, 21 Jul 2026 14:00:00 +0800</pubDate>
+				<guid>http://localhost:1313/posts/second-post/</guid>
+				<description>&lt;h1 id=&#34;深度学习基础概念速览&#34;&gt;&#xD;&#xA;  深度学习基础概念速览&#xD;&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%9f%ba%e7%a1%80%e6%a6%82%e5%bf%b5%e9%80%9f%e8%a7%88&#34;&gt;&#xD;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xD;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xD;&#xA;  &lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;这篇文章用尽量简洁的方式梳理深度学习中几个核心概念。&lt;/p&gt;&#xA;&lt;h2 id=&#34;神经网络&#34;&gt;&#xD;&#xA;  神经网络&#xD;&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#%e7%a5%9e%e7%bb%8f%e7%bd%91%e7%bb%9c&#34;&gt;&#xD;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xD;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xD;&#xA;  &lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;神经网络本质上是多层嵌套的函数组合，每一层做一次线性变换 + 非线性激活：&lt;/p&gt;&#xA;&lt;p&gt;$$&#xA;\mathbf{h}^{(l)} = \sigma(\mathbf{W}^{(l)} \mathbf{h}^{(l-1)} + \mathbf{b}^{(l)})&#xA;$$&lt;/p&gt;&#xA;&lt;p&gt;其中 $\mathbf{W}$ 是权重矩阵，$\mathbf{b}$ 是偏置，$\sigma$ 是激活函数。&lt;/p&gt;&#xA;&lt;h2 id=&#34;损失函数&#34;&gt;&#xD;&#xA;  损失函数&#xD;&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#%e6%8d%9f%e5%a4%b1%e5%87%bd%e6%95%b0&#34;&gt;&#xD;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xD;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xD;&#xA;  &lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;训练的目标是最小化损失函数。常见的有：&lt;/p&gt;&#xA;&lt;table&gt;&#xA;&#x9;&lt;thead&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;th&gt;任务&lt;/th&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;th&gt;损失函数&lt;/th&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&lt;/thead&gt;&#xA;&#x9;&lt;tbody&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;回归&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;MSE (均方误差)&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;二分类&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;Binary Cross-Entropy&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;多分类&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;Categorical Cross-Entropy&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;h2 id=&#34;反向传播&#34;&gt;&#xD;&#xA;  反向传播&#xD;&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#%e5%8f%8d%e5%90%91%e4%bc%a0%e6%92%ad&#34;&gt;&#xD;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xD;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xD;&#xA;  &lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;反向传播就是链式法则的工程化应用，从输出层向输入层逐层计算梯度，用来更新参数：&lt;/p&gt;&#xA;&lt;p&gt;$$&#xA;\frac{\partial L}{\partial \mathbf{W}^{(l)}} = \frac{\partial L}{\partial \mathbf{h}^{(l)}} \cdot \frac{\partial \mathbf{h}^{(l)}}{\partial \mathbf{W}^{(l)}}&#xA;$$&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>欢迎来到我的博客</title>
+				<link>http://localhost:1313/posts/article-name/</link>
+				<pubDate>Mon, 20 Jul 2026 10:00:00 +0800</pubDate>
+				<guid>http://localhost:1313/posts/article-name/</guid>
+				<description>&lt;h1 id=&#34;欢迎来到我的博客&#34;&gt;&#xD;&#xA;  欢迎来到我的博客&#xD;&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#%e6%ac%a2%e8%bf%8e%e6%9d%a5%e5%88%b0%e6%88%91%e7%9a%84%e5%8d%9a%e5%ae%a2&#34;&gt;&#xD;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xD;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xD;&#xA;  &lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;你好，欢迎光临！这是我的个人博客，使用 Hugo 搭配 hugo-coder 主题搭建。&lt;/p&gt;&#xA;&lt;h2 id=&#34;关于这个博客&#34;&gt;&#xD;&#xA;  关于这个博客&#xD;&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#%e5%85%b3%e4%ba%8e%e8%bf%99%e4%b8%aa%e5%8d%9a%e5%ae%a2&#34;&gt;&#xD;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xD;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xD;&#xA;  &lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;这里会不定期分享我在深度学习和地质工程领域的学习笔记与思考。内容大概会涵盖：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;深度学习理论与模型实现&lt;/li&gt;&#xA;&lt;li&gt;遥感图像处理与多模态融合&lt;/li&gt;&#xA;&lt;li&gt;地质工程相关技术&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;接下来的计划&#34;&gt;&#xD;&#xA;  接下来的计划&#xD;&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#%e6%8e%a5%e4%b8%8b%e6%9d%a5%e7%9a%84%e8%ae%a1%e5%88%92&#34;&gt;&#xD;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xD;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xD;&#xA;  &lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;后面会陆续整理一些之前的研究笔记发上来。如果你对某个话题感兴趣，欢迎通过 About 页面的联系方式找到我。&lt;/p&gt;&#xA;&lt;p&gt;感谢来访！&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>
