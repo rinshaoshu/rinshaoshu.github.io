@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <title>从零理解 Hoek–Brown：不仅记住公式，更理解它为什么这样写 · rinshaoshu</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="author" content="林诚松">
+  <meta name="description" content="Hoek–Brown 是一个基于大量三轴压缩试验建立的非线性岩体强度准则：围压约束裂缝，裂缝控制破坏，岩体强度随围压增加而非线性提高。">
+  <meta name="keywords" content="Hoek-Brown,岩体力学,地质工程,强度准则,GSI">
+
+  <link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="/css/coder.css" media="screen">
+  <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+
+  <link rel="icon" href="/images/avatar.jpg">
+</head>
+
+<body class="preload-transitions colorscheme-auto" data-nav="/posts/">
+
+  <div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+      <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+  </div>
+
+  <main class="wrapper">
+    <nav class="navigation">
+      <section class="container">
+        <a class="navigation-title" href="/">rinshaoshu</a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle">
+          <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+        </label>
+        <ul class="navigation-list">
+          <li class="navigation-item">
+            <a class="navigation-link" href="/posts/">Blog</a>
+          </li>
+          <li class="navigation-item">
+            <a class="navigation-link" href="/about/">About</a>
+          </li>
+        </ul>
+      </section>
+    </nav>
+
+    <div class="content">
+      <section class="container post">
+        <article>
+          <header>
+            <div class="post-title">
+              <h1 class="title">从零理解 Hoek–Brown：不仅记住公式，更理解它为什么这样写</h1>
+            </div>
+            <div class="post-meta">
+              <div class="date">
+                <span class="posted-on">
+                  <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+                  <time datetime="2026-09-29">2026-09-29</time>
+                </span>
+              </div>
+              <div class="authors">
+                <i class="fa-solid fa-user" aria-hidden="true"></i> 林诚松
+              </div>
+              <div class="categories">
+                <i class="fa-solid fa-folder" aria-hidden="true"></i>
+                <a href="/posts/">技术</a>
+              </div>
+              <div class="tags">
+                <i class="fa-solid fa-tag" aria-hidden="true"></i>
+                <span class="tag"><a href="/posts/">地质工程</a></span>
+                <span class="separator">•</span>
+                <span class="tag"><a href="/posts/">岩体力学</a></span>
+                <span class="separator">•</span>
+                <span class="tag"><a href="/posts/">Hoek–Brown</a></span>
+              </div>
+            </div>
+          </header>
+
+          <div class="post-content">
+            <p>很多人第一次看到 Hoek–Brown，看到的是下面这个公式：</p>
+
+            <p>$$
+\boxed{
+\sigma_1
+=
+\sigma_3
++
+\sigma_{ci}
+\left(
+m_b\frac{\sigma_3}{\sigma_{ci}}+s
+\right)^a
+}
+$$</p>
+
+            <p>然后开始记：</p>
+            <ul>
+              <li>\(\sigma_1\) 是什么？</li>
+              <li>\(\sigma_3\) 是什么？</li>
+              <li>\(m_b\) 是什么？</li>
+              <li>\(s\) 是什么？</li>
+              <li>\(a\) 是什么？</li>
+            </ul>
+
+            <p>但真正的问题其实是：</p>
+            <blockquote>
+              <p><strong>为什么会有这个公式？它到底想描述什么？</strong></p>
+            </blockquote>
+
+            <hr>
+
+            <h2 id="hoekbrown-到底在回答什么">Hoek–Brown 到底在回答什么？</h2>
+            <p>Hoek–Brown 只回答一个问题：</p>
+            <blockquote>
+              <p><strong>一个岩体单元，在当前应力状态下，会不会发生破坏？</strong></p>
+            </blockquote>
+            <p>这里有两个关键词：</p>
+            <ul>
+              <li><strong>岩体单元（Material Point）</strong></li>
+              <li><strong>当前应力状态</strong></li>
+            </ul>
+            <p>它<strong>不负责计算应力</strong>，应力通常已经由有限元、有限差分等数值方法计算好了。</p>
+            <p>例如某个材料点：</p>
+            <p>$$
+\sigma_1=120\text{ MPa}
+$$</p>
+            <p>$$
+\sigma_3=15\text{ MPa}
+$$</p>
+            <p>Hoek–Brown 要判断：</p>
+            <blockquote>
+              <p><strong>这样的应力，会不会让岩体失效？</strong></p>
+            </blockquote>
+
+            <hr>
+
+            <h2 id="为什么只需要两个应力">为什么只需要两个应力？</h2>
+            <p>岩体内部真正的应力其实是一个应力张量：</p>
+            <p>$$
+\boldsymbol\sigma=
+\begin{bmatrix}
+\sigma_{xx}&amp;\tau_{xy}&amp;\tau_{xz}\\
+\tau_{yx}&amp;\sigma_{yy}&amp;\tau_{yz}\\
+\tau_{zx}&amp;\tau_{zy}&amp;\sigma_{zz}
+\end{bmatrix}
+$$</p>
+            <p>经过主应力变换后，可以得到三个主应力：</p>
+            <p>$$
+\sigma_1\ge\sigma_2\ge\sigma_3
+$$</p>
+            <p>Hoek–Brown 根据大量三轴压缩试验发现：</p>
+            <p>岩石破坏主要受到：</p>
+            <ul>
+              <li>最大主应力 \(\sigma_1\)</li>
+              <li>最小主应力 \(\sigma_3\)</li>
+            </ul>
+            <p>控制。</p>
+            <p>因此建立：</p>
+            <p>$$
+\sigma_1=f(\sigma_3)
+$$</p>
+            <p>这就是 Hoek–Brown 的思想。</p>
+
+            <hr>
+
+            <h2 id="为什么围压越大岩石越强">为什么围压越大，岩石越强？</h2>
+            <p>假设没有围压：</p>
+<pre><code>      ↓
+
+████████
+</code></pre>
+            <p>裂缝容易张开。</p>
+            <p>如果四周夹紧：</p>
+<pre><code>→████████←
+
+      ↓
+</code></pre>
+            <p>裂缝被压住。</p>
+            <p>因此：</p>
+            <p>岩石必须承受更大的压力，</p>
+            <p>才会破坏。</p>
+            <p>所以：</p>
+            <blockquote>
+              <p><strong>围压（\(\sigma_3\)）越大，允许的最大主应力（\(\sigma_1\)）越高。</strong></p>
+            </blockquote>
+            <p>这就是整个公式最核心的物理意义。</p>
+
+            <hr>
+
+            <h2 id="为什么不是一条直线">为什么不是一条直线？</h2>
+            <p>如果采用线性关系：</p>
+            <p>$$
+\sigma_1=A+B\sigma_3
+$$</p>
+            <p>表示：</p>
+            <blockquote>
+              <p>每增加一点围压，</p>
+              <p>岩石强度永远增加固定值。</p>
+            </blockquote>
+            <p>但是实验发现：</p>
+            <p>不是。</p>
+            <p>真实实验得到的是：</p>
+<pre><code>σ1
+
+│         ●
+│      ●
+│    ●
+│  ●
+│●
+└──────────── σ3
+</code></pre>
+            <p>原因很简单。</p>
+            <p>刚开始增加围压时，</p>
+            <p>裂缝很容易被压闭，</p>
+            <p>岩体强度提升非常明显。</p>
+            <p>但是：</p>
+            <p>当裂缝已经几乎全部闭合以后，</p>
+            <p>继续增加围压，</p>
+            <p>强度仍然增加，</p>
+            <p>但速度越来越慢。</p>
+            <p>因此：</p>
+            <p>真实关系一定是：</p>
+            <blockquote>
+              <p><strong>非线性的。</strong></p>
+            </blockquote>
+            <p>所以 Hoek–Brown 使用：</p>
+            <p>$$
+(\cdots)^a
+$$</p>
+            <p>来描述这种实验观察到的曲线。</p>
+
+            <hr>
+
+            <h2 id="核心公式拆解">核心公式拆解</h2>
+            <p>现在再来看公式：</p>
+            <p>$$
+\sigma_1=
+\sigma_3+
+\sigma_{ci}
+\left(
+m_b\frac{\sigma_3}{\sigma_{ci}}
++s
+\right)^a
+$$</p>
+            <p>其实每一项都有明确意义。</p>
+
+            <h3 id="第一项">第一项</h3>
+            <p>$$
+\sigma_3
+$$</p>
+            <p>表示：</p>
+            <p>围压本身。</p>
+            <p>围压越大，</p>
+            <p>岩石越稳定。</p>
+
+            <h3 id="第二项">第二项</h3>
+            <p>$$
+\sigma_{ci}
+$$</p>
+            <p>表示：</p>
+            <p>完整岩石单轴抗压强度（UCS）。</p>
+            <p>它代表：</p>
+            <blockquote>
+              <p><strong>如果没有裂缝，这种岩石本身有多强。</strong></p>
+            </blockquote>
+            <p>例如：</p>
+            <p>花岗岩：</p>
+            <p>可能</p>
+            <p>200 MPa。</p>
+            <p>砂岩：</p>
+            <p>可能</p>
+            <p>60 MPa。</p>
+            <p>所以：</p>
+            <p>岩石材料不同，</p>
+            <p>起始强度就不同。</p>
+
+            <h3 id="第三项">第三项</h3>
+            <p>$$
+m_b
+$$</p>
+            <p>控制：</p>
+            <p>围压增加以后，</p>
+            <p>强度增长的快慢。</p>
+            <p>它来自：</p>
+            <p>$$
+m_b
+=
+m_i
+\exp
+\left(
+\frac{GSI-100}{28-14D}
+\right)
+$$</p>
+            <p>也就是说：</p>
+            <p>岩体越完整，</p>
+            <p>\(m_b\) 越大。</p>
+
+            <h3 id="第四项">第四项</h3>
+            <p>$$
+s
+$$</p>
+            <p>控制：</p>
+            <p>岩体整体强度。</p>
+            <p>计算式：</p>
+            <p>$$
+s=
+\exp
+\left(
+\frac{GSI-100}{9-3D}
+\right)
+$$</p>
+            <p>如果：</p>
+            <p>GSI 很高，</p>
+            <p>那么：</p>
+            <p>$$
+s\approx1
+$$</p>
+            <p>如果：</p>
+            <p>岩体非常破碎：</p>
+            <p>$$
+s\approx0
+$$</p>
+            <p>所以：</p>
+            <p>它本质上是在降低整体强度。</p>
+
+            <h3 id="第五项">第五项</h3>
+            <p>$$
+a
+$$</p>
+            <p>控制：</p>
+            <p>曲线弯曲程度。</p>
+            <p>一般：</p>
+            <p>$$
+0.5\sim0.65
+$$</p>
+            <p>它不是随便加进去的。</p>
+            <p>而是为了让公式能够更准确拟合大量实验数据。</p>
+
+            <hr>
+
+            <h2 id="gsi-为什么重要">GSI 为什么重要？</h2>
+            <p>很多人会问：</p>
+            <p>实验室已经测出了：</p>
+            <p>$$
+\sigma_{ci}
+$$</p>
+            <p>为什么还要 GSI？</p>
+            <p>原因是：</p>
+            <p>实验室测的是：</p>
+            <p><strong>完整岩石。</strong></p>
+            <p>而工程面对的是：</p>
+            <p><strong>岩体。</strong></p>
+            <p>例如：</p>
+            <p>实验室：</p>
+<pre><code>████████
+</code></pre>
+            <p>地下：</p>
+<pre><code>██│██
+──┼──
+██│██
+</code></pre>
+            <p>材料一样。</p>
+            <p>裂缝完全不同。</p>
+            <p>所以：</p>
+            <p>真正控制工程强度的，</p>
+            <p>不仅是：</p>
+            <p>岩石材料。</p>
+            <p>还有：</p>
+            <p>裂缝。</p>
+            <p>GSI 就是用来描述：</p>
+            <p>岩体有多完整。</p>
+
+            <hr>
+
+            <h2 id="hoekbrown-在整个工程中的位置">Hoek–Brown 在整个工程中的位置</h2>
+            <p>整个流程其实非常简单。</p>
+<pre><code>外部荷载
+（重力、开挖、水压力）
+        │
+        ▼
+计算应力场
+        │
+        ▼
+得到 σ₁、σ₂、σ₃
+        │
+        ▼
+Hoek–Brown
+        │
+        ▼
+判断是否破坏
+</code></pre>
+            <p>所以：</p>
+            <p>Hoek–Brown 并不是：</p>
+            <p>计算应力。</p>
+            <p>而是：</p>
+            <p>利用已经得到的主应力，</p>
+            <p>判断：</p>
+            <blockquote>
+              <p><strong>这个岩体单元还能不能承受。</strong></p>
+            </blockquote>
+
+            <hr>
+
+            <h2 id="总结">总结</h2>
+            <p>如果让我用一句话概括 Hoek–Brown，我会这样说：</p>
+            <blockquote>
+              <p><strong>Hoek–Brown 是一个基于大量三轴压缩试验建立的非线性岩体强度准则。它认为岩体是否破坏，主要取决于最大主应力和围压之间的关系；围压越大，裂缝越不容易扩展，因此岩体能够承受更高的主应力。GSI、\(m_b\)、\(s\)、\(a\) 等参数则用于把实验室中的“完整岩石”修正为真实工程中的“岩体”，使公式能够反映裂隙、节理和岩体质量对强度的影响。</strong></p>
+            </blockquote>
+            <blockquote>
+              <p><strong>真正需要记住的不是公式，而是它背后的逻辑：围压约束裂缝，裂缝控制破坏，因此岩体强度随围压增加而非线性提高。</strong></p>
+            </blockquote>
+          </div>
+
+          <footer>
+            <div id="disqus_thread"></div>
+            <script>
+              (function () {
+                if (['localhost', '127.0.0.1'].indexOf(window.location.hostname) !== -1) {
+                  document.getElementById('disqus_thread').innerHTML =
+                    'Disqus comments not available by default when the website is previewed locally.';
+                  return;
+                }
+                var d = document, s = d.createElement('script');
+                s.async = true;
+                s.src = '//rinshaoshu.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+              })();
+            </script>
+          </footer>
+        </article>
+      </section>
+    </div>
+
+    <footer class="footer">
+      <section class="container">
+        © <span id="year"></span> 林诚松
+      </section>
+    </footer>
+  </main>
+
+  <script src="/js/coder.js"></script>
+  <script src="/js/blog.js"></script>
+</body>
+
+</html>
