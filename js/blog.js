@@ -23,6 +23,13 @@ const SITE = {
 // 新增文章：在最上面加一条，并新建 posts/<slug>/index.html
 const POSTS = [
   {
+    slug: 'paper-rss-wenchuan',
+    title: '论文阅读记录：Estimating weakening on hillslopes caused by strong earthquakes',
+    date: '2026-09-30',
+    category: '论文阅读',
+    tags: ['地震滑坡', '剪切强度', '蒙特卡洛']
+  },
+  {
     slug: 'vietoris-rips',
     title: '从零开始理解 Vietoris–Rips 复形：用拓扑看数据的形状',
     date: '2026-09-30',
