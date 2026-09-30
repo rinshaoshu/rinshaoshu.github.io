@@ -23,6 +23,13 @@ const SITE = {
 // 新增文章：在最上面加一条，并新建 posts/<slug>/index.html
 const POSTS = [
   {
+    slug: 'vietoris-rips',
+    title: '从零开始理解 Vietoris–Rips 复形：用拓扑看数据的形状',
+    date: '2026-09-30',
+    category: '技术',
+    tags: ['TDA', '拓扑数据分析', '持续同调']
+  },
+  {
     slug: 'hoek-brown',
     title: '从零理解 Hoek–Brown：不仅记住公式，更理解它为什么这样写',
     date: '2026-09-29',

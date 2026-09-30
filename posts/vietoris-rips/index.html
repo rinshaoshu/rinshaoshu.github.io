@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <title>从零开始理解 Vietoris–Rips 复形：用拓扑看数据的形状 · rinshaoshu</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="author" content="林诚松">
+  <meta name="description" content="从初学者视角理解 Vietoris–Rips 复形的核心思想、工作方式与实际应用：让距离阈值从小到大变化，用持续同调观察数据在多个尺度上的形状。">
+  <meta name="keywords" content="TDA,拓扑数据分析,Vietoris-Rips,持续同调,点云">
+
+  <link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="/css/coder.css" media="screen">
+  <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+
+  <link rel="icon" href="/images/avatar.jpg">
+</head>
+
+<body class="preload-transitions colorscheme-auto" data-nav="/posts/">
+
+  <div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+      <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+  </div>
+
+  <main class="wrapper">
+    <nav class="navigation">
+      <section class="container">
+        <a class="navigation-title" href="/">rinshaoshu</a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle">
+          <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+        </label>
+        <ul class="navigation-list">
+          <li class="navigation-item">
+            <a class="navigation-link" href="/posts/">Blog</a>
+          </li>
+          <li class="navigation-item">
+            <a class="navigation-link" href="/about/">About</a>
+          </li>
+        </ul>
+      </section>
+    </nav>
+
+    <div class="content">
+      <section class="container post">
+        <article>
+          <header>
+            <div class="post-title">
+              <h1 class="title">从零开始理解 Vietoris–Rips 复形：用拓扑看数据的形状</h1>
+            </div>
+            <div class="post-meta">
+              <div class="date">
+                <span class="posted-on">
+                  <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+                  <time datetime="2026-09-30">2026-09-30</time>
+                </span>
+              </div>
+              <div class="authors">
+                <i class="fa-solid fa-user" aria-hidden="true"></i> 林诚松
+              </div>
+              <div class="categories">
+                <i class="fa-solid fa-folder" aria-hidden="true"></i>
+                <a href="/posts/">技术</a>
+              </div>
+              <div class="tags">
+                <i class="fa-solid fa-tag" aria-hidden="true"></i>
+                <span class="tag"><a href="/posts/">TDA</a></span>
+                <span class="separator">•</span>
+                <span class="tag"><a href="/posts/">拓扑数据分析</a></span>
+                <span class="separator">•</span>
+                <span class="tag"><a href="/posts/">持续同调</a></span>
+              </div>
+            </div>
+          </header>
+
+          <div class="post-content">
+            <h2 id="引言当数据有了形状">引言：当数据有了“形状”</h2>
+            <p>最近在系统学习拓扑数据分析（TDA），越深入越觉得有意思。传统的数据分析方法——无论是统计指标、聚类还是 PCA——大多关注数据的数值特征或局部结构，但有一类问题它们很难回答：</p>
+            <p><strong>这堆点云数据，整体来看是什么形状？</strong></p>
+            <p>它有环吗？有几个独立的连通块？有空洞吗？这些问题听起来抽象，但在很多真实场景中恰恰是关键。比如金融时间序列在危机前会不会呈现出某种“拓扑征兆”？蛋白质的三维结构中的空腔与其功能有什么关系？</p>
+            <p>TDA 提供了一套数学工具来回答这类问题，而 <strong>Vietoris–Rips 复形</strong> 是其中最基本、最常用的构造。这篇文章想从一个初学者的视角，把 Vietoris–Rips 的核心思想、工作方式和实际应用讲清楚。</p>
+
+            <h2 id="一为什么需要-vietorisrips">一、为什么需要 Vietoris–Rips？</h2>
+            <p>假设你手头有一组点云数据——可以是用户行为嵌入、蛋白质原子坐标、或者股票收益的时间序列嵌入。你想知道它的“形状”。</p>
+            <p>最直接的想法是：<strong>把距离近的点连起来</strong>。</p>
+            <p>但这里有个问题：多近才算“近”？阈值设小了，点都是孤立的，什么结构都看不出来；设大了，所有点连成一团，洞全被填满了。</p>
+            <p><strong>Vietoris–Rips 的回答是：不选一个阈值，让阈值从小到大变化。</strong></p>
+            <p>这就是“过滤”的思想。Vietoris–Rips 复形定义了一套简单的规则，随着距离阈值 ε 的增大，逐步往数据里加入边、三角形、四面体，形成一个嵌套的单纯复形序列。持续同调则跟踪每个拓扑特征——连通分支、环、空腔——在这个序列中的“出生”和“死亡”。</p>
+
+            <h2 id="二vietorisrips-的核心规则">二、Vietoris–Rips 的核心规则</h2>
+            <p>规则本身非常简洁。</p>
+            <p>给定一个点集和一个距离阈值 ε：</p>
+            <ul>
+              <li><strong>点</strong>：每个点从 ε = 0 开始就存在。</li>
+              <li><strong>边</strong>：如果两点之间的距离不超过 ε，就把这条边加进来。</li>
+              <li><strong>三角形</strong>：如果三个点两两之间的距离都不超过 ε，就把这个三角形加进来。</li>
+              <li><strong>更高维单纯形</strong>：如果 k+1 个点两两之间的距离都不超过 ε，就把这个 k 维单纯形加进来。</li>
+            </ul>
+            <p>也就是说，Vietoris–Rips 复形完全由“两两距离”决定，不需要任何额外的几何或组合信息。这种简洁性正是它被广泛使用的原因。</p>
+            <p>随着 ε 从 0 慢慢增大，复形里加入的边和三角形越来越多，整个结构像一个逐渐生长的骨架。</p>
+
+            <h2 id="三一个具体的例子">三、一个具体的例子</h2>
+            <p>想象四个点组成一个正方形，边长 1，对角线约 1.414。</p>
+            <p><strong>ε = 0 时</strong>：四个孤立的点，四个连通分支。</p>
+            <p><strong>ε = 1 时</strong>：四条边被加入，四个点连成一个环。连通分支变成一个，同时出现了一个一维的洞——环出现了。</p>
+            <p><strong>ε = 1.414 时</strong>：两条对角线被加入，四个三角形填满了环的内部。环死亡了。</p>
+            <p>持续同调记录下这个环的生命周期：出生在 ε = 1，死亡在 ε = 1.414，持久性是 0.414。</p>
+            <p>如果这个环的持久性很大，说明它在多个尺度上都稳定存在，很可能是数据的真实结构；如果很小，那它很可能只是噪声。</p>
+
+            <h2 id="四vietorisrips-在真实场景中的应用">四、Vietoris–Rips 在真实场景中的应用</h2>
+            <p>Vietoris–Rips 是 TDA 应用中最常用的过滤构造之一，下面几个案例能帮助你理解它的实际价值。</p>
+
+            <h3 id="41-金融危机预警的拓扑信号">4.1 金融：危机预警的拓扑信号</h3>
+            <p>Gidea 和 Katz 的一项经典研究发现，在 2000 年科技股崩盘和 2008 年次贷危机之前，美国主要股指的持久景观范数显著升高，而在市场稳定期则保持平稳。这意味着 Vietoris–Rips 捕捉到的拓扑复杂性变化，可能提前反映了系统性风险的积累。</p>
+            <p>类似地，一项针对加拿大市场的研究使用 Vietoris–Rips 过滤，结合图神经网络和异常检测方法，识别了 2005 至 2021 年间的多次金融压力事件。日本国内航空系统的研究也使用 Vietoris–Rips 过滤分析了航班延误的共现模式。</p>
+
+            <h3 id="42-生物蛋白质结构的拓扑分类">4.2 生物：蛋白质结构的拓扑分类</h3>
+            <p>蛋白质的三维结构本质上就是原子坐标构成的空间点云。有研究使用 Vietoris–Rips 持续同调提取“生物拓扑标记”，这些标记对平移和旋转不变，因此不需要结构叠合就能进行蛋白质分类。</p>
+            <p>更宏观的一项研究分析了超过两亿个蛋白质结构，发现复杂生物（如人类）的蛋白质具有更精细的拓扑结构，而嗜热微生物的蛋白质更为紧凑，疾病相关突变倾向于出现在特定的拓扑区域。</p>
+
+            <h3 id="43-航空航班延误的拓扑画像">4.3 航空：航班延误的拓扑画像</h3>
+            <p>在航空管理领域，研究者把每个航班的延误情况映射到二维平面上的点：正常或延误作为坐标符号，延误时长作为距离。然后用 Vietoris–Rips 的零维持续同调分析每天的点云。航班严重延误的日子，点云中会出现远离原点的孤立点，在持续同调中表现为特殊的持久性特征。通过比较每天的平均持久景观，可以识别出“异常”的运营日。</p>
+
+            <h3 id="44-材料科学多孔结构的表征">4.4 材料科学：多孔结构的表征</h3>
+            <p>多孔材料（如催化剂载体、电池电极）的孔隙结构对其性能至关重要。把材料的三维成像数据转化为点云后，Vietoris–Rips 持续同调可以定量描述孔隙的连通性、孔径分布和空洞的持久性。这种方法比传统的孔隙率统计更能反映材料的功能特性。</p>
+
+            <h2 id="五vietorisrips-的局限与注意事项">五、Vietoris–Rips 的局限与注意事项</h2>
+            <p>Vietoris–Rips 简洁好用，但并非万能。</p>
+            <p><strong>计算成本</strong>：随着 ε 增大，高维单纯形会爆炸式增长。对于 n 个点，最坏情况下边的数量是 n 平方量级，三角形是 n 立方量级。实践中通常需要做边收缩等优化，或者配合 Witness 复形、Alpha 复形等替代方案。</p>
+            <p><strong>对噪声的敏感度</strong>：虽然持续同调本身对噪声鲁棒——短条会被滤除——但如果噪声导致点云本身的结构被严重扭曲，Vietoris–Rips 也会受到影响。预处理，比如去噪和降采样，很重要。</p>
+            <p><strong>高维数据的“距离集中”</strong>：在高维空间中，点对距离的区分度下降，ε 的选择空间可能很窄。这是所有基于距离的方法共同的挑战。</p>
+
+            <h2 id="六一点个人体会">六、一点个人体会</h2>
+            <p>学 Vietoris–Rips 最大的收获，是它提供了一种<strong>完全不同于统计视角的数据观</strong>。</p>
+            <p>统计方法问的是“这组数据的均值、方差、分布是什么”，而 Vietoris–Rips 加持续同调问的是“<strong>这组数据的形状，在多个尺度上呈现出什么结构</strong>”。两者不是替代关系，而是互补。</p>
+            <p>另一个让我觉得有意思的地方是它的<strong>鲁棒性和多尺度性</strong>。你不需要精确地知道“正确的尺度”是多少，持续同调会自动帮你区分：哪些结构在多个尺度上都稳定，哪些只是噪声的产物。</p>
+            <p>如果你对 TDA 感兴趣，Vietoris–Rips 是一个很好的起点。它的概念直观，规则简单，但背后蕴含的拓扑学思想足够深刻。从一个小点云出发，画一张持久图，你会对“数据的形状”有一个全新的直觉。</p>
+          </div>
+
+          <footer>
+            <div id="disqus_thread"></div>
+            <script>
+              (function () {
+                if (['localhost', '127.0.0.1'].indexOf(window.location.hostname) !== -1) {
+                  document.getElementById('disqus_thread').innerHTML =
+                    'Disqus comments not available by default when the website is previewed locally.';
+                  return;
+                }
+                var d = document, s = d.createElement('script');
+                s.async = true;
+                s.src = '//rinshaoshu.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+              })();
+            </script>
+          </footer>
+        </article>
+      </section>
+    </div>
+
+    <footer class="footer">
+      <section class="container">
+        © <span id="year"></span> 林诚松
+      </section>
+    </footer>
+  </main>
+
+  <script src="/js/coder.js"></script>
+  <script src="/js/blog.js"></script>
+</body>
+
+</html>
