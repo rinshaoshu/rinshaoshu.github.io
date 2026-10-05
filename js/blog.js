@@ -23,6 +23,13 @@ const SITE = {
 // 新增文章：在最上面加一条，并新建 posts/<slug>/index.html
 const POSTS = [
   {
+    slug: 'speak-it-clearly',
+    title: '当我感到不安时，我会逼自己把话说清楚',
+    date: '2026-10-05',
+    category: '随笔',
+    tags: ['情绪', '自我对话', '语言']
+  },
+  {
     slug: 'paper-rss-wenchuan',
     title: '论文阅读记录：Estimating weakening on hillslopes caused by strong earthquakes',
     date: '2026-09-30',
