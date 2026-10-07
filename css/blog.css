@@ -1,0 +1,143 @@
+/* ============================================================
+ * Blog 板块专属样式（学术蓝 #1565c0）
+ * 由 blog.js 按 data-nav="/posts/" 自动注入
+ * ============================================================ */
+
+/* ---------- 文章列表 ---------- */
+#post-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid #eceff3;
+}
+
+#post-list li .date {
+  color: #5c7a9e;
+  font-variant-numeric: tabular-nums;
+}
+
+#post-list li .meta {
+  flex-basis: 100%;
+  margin-top: 0.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+#post-list .category-chip {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #1565c0;
+  border: 1px solid #bcd4ee;
+  border-radius: 0.4rem;
+  padding: 0 0.8rem;
+  background: #f2f7fd;
+}
+
+#post-list .tag-chip {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #6b7c8d;
+  padding: 0 0.4rem;
+}
+
+#post-list .tag-chip::before {
+  content: '#';
+  color: #b0bfcc;
+}
+
+@media only screen and (max-width: 768px) {
+  #post-list li .meta {
+    margin-top: 0.4rem;
+  }
+}
+
+/* ---------- 文章正文页 ---------- */
+body[data-nav="/posts/"] .post .post-title .title {
+  border-left: 4px solid #1565c0;
+  padding-left: 1.6rem;
+}
+
+body[data-nav="/posts/"] .post .post-meta .categories a,
+body[data-nav="/posts/"] .post .post-meta .tags .tag a {
+  color: #1565c0;
+}
+
+body[data-nav="/posts/"] .post .post-content h2 {
+  border-bottom: 1px solid #e3eaf2;
+  padding-bottom: 0.6rem;
+}
+
+body[data-nav="/posts/"] .post .post-content blockquote {
+  border-left: 4px solid #bcd4ee;
+  background: #f7fafd;
+}
+
+/* ---------- 深色模式 ---------- */
+body.colorscheme-dark[data-nav="/posts/"] #post-list li {
+  border-bottom-color: #2c343c;
+}
+body.colorscheme-dark[data-nav="/posts/"] #post-list li .date {
+  color: #7a93ad;
+}
+body.colorscheme-dark[data-nav="/posts/"] #post-list .category-chip {
+  color: #64a5e8;
+  border-color: #2d4560;
+  background: #1d2836;
+}
+body.colorscheme-dark[data-nav="/posts/"] #post-list .tag-chip {
+  color: #8b9cad;
+}
+body.colorscheme-dark[data-nav="/posts/"] #post-list .tag-chip::before {
+  color: #4a5b6c;
+}
+body.colorscheme-dark[data-nav="/posts/"] .post .post-title .title {
+  border-left-color: #42a5f5;
+}
+body.colorscheme-dark[data-nav="/posts/"] .post .post-meta .categories a,
+body.colorscheme-dark[data-nav="/posts/"] .post .post-meta .tags .tag a {
+  color: #64a5e8;
+}
+body.colorscheme-dark[data-nav="/posts/"] .post .post-content h2 {
+  border-bottom-color: #2c343c;
+}
+body.colorscheme-dark[data-nav="/posts/"] .post .post-content blockquote {
+  border-left-color: #2d4560;
+  background: #1d232a;
+}
+
+@media (prefers-color-scheme: dark) {
+  body.colorscheme-auto[data-nav="/posts/"] #post-list li {
+    border-bottom-color: #2c343c;
+  }
+  body.colorscheme-auto[data-nav="/posts/"] #post-list li .date {
+    color: #7a93ad;
+  }
+  body.colorscheme-auto[data-nav="/posts/"] #post-list .category-chip {
+    color: #64a5e8;
+    border-color: #2d4560;
+    background: #1d2836;
+  }
+  body.colorscheme-auto[data-nav="/posts/"] #post-list .tag-chip {
+    color: #8b9cad;
+  }
+  body.colorscheme-auto[data-nav="/posts/"] #post-list .tag-chip::before {
+    color: #4a5b6c;
+  }
+  body.colorscheme-auto[data-nav="/posts/"] .post .post-title .title {
+    border-left-color: #42a5f5;
+  }
+  body.colorscheme-auto[data-nav="/posts/"] .post .post-meta .categories a,
+  body.colorscheme-auto[data-nav="/posts/"] .post .post-meta .tags .tag a {
+    color: #64a5e8;
+  }
+  body.colorscheme-auto[data-nav="/posts/"] .post .post-content h2 {
+    border-bottom-color: #2c343c;
+  }
+  body.colorscheme-auto[data-nav="/posts/"] .post .post-content blockquote {
+    border-left-color: #2d4560;
+    background: #1d232a;
+  }
+}

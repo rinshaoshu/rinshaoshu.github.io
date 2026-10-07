@@ -1,0 +1,264 @@
+/* ============================================================
+ * 首页 + About 专属样式
+ * 由 blog.js 按 data-nav="/" 或 "/about/" 自动注入
+ * ============================================================ */
+
+/* ---------- 首页：门厅 ---------- */
+.home-tagline {
+  margin-top: 0.8rem;
+  color: #6b7c8d;
+  font-size: 1.6rem;
+  letter-spacing: 0.05em;
+}
+
+/* 两张入口卡：一蓝一金，预告两个板块的气质 */
+.home-doors {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 4rem;
+}
+
+.door {
+  display: block;
+  width: 30rem;
+  padding: 2.2rem 2.4rem;
+  background: #ffffff;
+  border: 1px solid #e3e8ee;
+  border-top: 3px solid #1565c0;
+  border-radius: 0.6rem;
+  text-align: left;
+}
+
+.door:hover {
+  box-shadow: 0 4px 12px rgba(21, 101, 192, 0.10);
+}
+
+.door .door-head {
+  display: block;
+  text-decoration: none;
+}
+
+.door .door-name {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #212121;
+}
+
+.door .door-desc {
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 1.3rem;
+  color: #6b7c8d;
+}
+
+/* 卡内最新文章列表 */
+.door-list {
+  list-style: none;
+  margin: 1.6rem 0 0;
+  padding: 1.2rem 0 0;
+  border-top: 1px solid #eceff3;
+}
+
+.door-list li {
+  margin: 0.4rem 0;
+}
+
+.door-list a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  font-size: 1.3rem;
+  line-height: 1.7;
+  color: #3d4852;
+  text-decoration: none;
+}
+
+.door-list a:hover,
+.door-list a:focus {
+  color: #1565c0;
+}
+
+.door-list .item-date {
+  flex-shrink: 0;
+  font-size: 1.1rem;
+  color: #9aa8b5;
+  font-variant-numeric: tabular-nums;
+}
+
+.door-list .item-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Diary 门：暖金 + 衬线，呼应手账风 */
+.door-diary {
+  border-top-color: #b08a2e;
+}
+
+.door-diary .door-name {
+  font-family: Georgia, 'Times New Roman', 'Songti SC', 'SimSun', serif;
+}
+
+.door-diary:hover {
+  box-shadow: 0 4px 12px rgba(176, 138, 46, 0.12);
+}
+
+.door-diary .door-list a:hover,
+.door-diary .door-list a:focus {
+  color: #b08a2e;
+}
+
+.door-diary .door-list {
+  border-top-color: #efe4c8;
+}
+
+@media only screen and (max-width: 768px) {
+  .home-doors {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    margin-top: 2.4rem;
+  }
+  .door {
+    width: 100%;
+    max-width: 32rem;
+  }
+}
+
+/* ---------- About：名片 ---------- */
+body[data-nav="/about/"] .page article {
+  background: #ffffff;
+  border: 1px solid #e3e8ee;
+  border-radius: 0.8rem;
+  padding: 3.2rem 3.6rem;
+  margin-top: 2.4rem;
+  box-shadow: 0 2px 12px rgba(30, 45, 60, 0.06);
+}
+
+body[data-nav="/about/"] .page article > header .title {
+  border-left: 4px solid #1565c0;
+  padding-left: 1.6rem;
+}
+
+body[data-nav="/about/"] .page article h2 {
+  border-bottom: 1px solid #eceff3;
+  padding-bottom: 0.6rem;
+}
+
+@media only screen and (max-width: 768px) {
+  body[data-nav="/about/"] .page article {
+    padding: 2rem 1.6rem;
+  }
+}
+
+/* ---------- 深色模式 ---------- */
+body.colorscheme-dark .home-tagline {
+  color: #8b9cad;
+}
+body.colorscheme-dark .door {
+  background: #24262a;
+  border-color: #33373d;
+  border-top-color: #42a5f5;
+}
+body.colorscheme-dark .door:hover,
+body.colorscheme-dark .door:focus {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+body.colorscheme-dark .door .door-name {
+  color: #dadada;
+}
+body.colorscheme-dark .door .door-desc {
+  color: #8b9cad;
+}
+body.colorscheme-dark .door-diary {
+  border-top-color: #d9a441;
+}
+body.colorscheme-dark .door-list {
+  border-top-color: #33373d;
+}
+body.colorscheme-dark .door-list a {
+  color: #c4cdd6;
+}
+body.colorscheme-dark .door-list a:hover,
+body.colorscheme-dark .door-list a:focus {
+  color: #64a5e8;
+}
+body.colorscheme-dark .door-diary .door-list {
+  border-top-color: #453b24;
+}
+body.colorscheme-dark .door-diary .door-list a:hover,
+body.colorscheme-dark .door-diary .door-list a:focus {
+  color: #d9a441;
+}
+body.colorscheme-dark .door-list .item-date {
+  color: #6b7a89;
+}
+body.colorscheme-dark[data-nav="/about/"] .page article {
+  background: #24262a;
+  border-color: #33373d;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+body.colorscheme-dark[data-nav="/about/"] .page article > header .title {
+  border-left-color: #42a5f5;
+}
+body.colorscheme-dark[data-nav="/about/"] .page article h2 {
+  border-bottom-color: #33373d;
+}
+
+@media (prefers-color-scheme: dark) {
+  body.colorscheme-auto .home-tagline {
+    color: #8b9cad;
+  }
+  body.colorscheme-auto .door {
+    background: #24262a;
+    border-color: #33373d;
+    border-top-color: #42a5f5;
+  }
+  body.colorscheme-auto .door:hover,
+  body.colorscheme-auto .door:focus {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  }
+  body.colorscheme-auto .door .door-name {
+    color: #dadada;
+  }
+  body.colorscheme-auto .door .door-desc {
+    color: #8b9cad;
+  }
+  body.colorscheme-auto .door-diary {
+    border-top-color: #d9a441;
+  }
+  body.colorscheme-auto .door-list {
+    border-top-color: #33373d;
+  }
+  body.colorscheme-auto .door-list a {
+    color: #c4cdd6;
+  }
+  body.colorscheme-auto .door-list a:hover,
+  body.colorscheme-auto .door-list a:focus {
+    color: #64a5e8;
+  }
+  body.colorscheme-auto .door-diary .door-list {
+    border-top-color: #453b24;
+  }
+  body.colorscheme-auto .door-diary .door-list a:hover,
+  body.colorscheme-auto .door-diary .door-list a:focus {
+    color: #d9a441;
+  }
+  body.colorscheme-auto .door-list .item-date {
+    color: #6b7a89;
+  }
+  body.colorscheme-auto[data-nav="/about/"] .page article {
+    background: #24262a;
+    border-color: #33373d;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  }
+  body.colorscheme-auto[data-nav="/about/"] .page article > header .title {
+    border-left-color: #42a5f5;
+  }
+  body.colorscheme-auto[data-nav="/about/"] .page article h2 {
+    border-bottom-color: #33373d;
+  }
+}

@@ -2,13 +2,12 @@
 <html lang="zh-CN">
 
 <head>
-  <title>rinshaoshu</title>
+  <title>Diary · rinshaoshu</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
   <meta name="author" content="林诚松">
-  <meta name="description" content="林诚松的个人博客 · 深度学习、遥感与地质工程">
-  <meta name="keywords" content="blog,深度学习,遥感,地质工程,个人博客">
+  <meta name="description" content="林诚松的每日记录">
 
   <link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -16,11 +15,12 @@
 
   <link rel="stylesheet" href="/css/coder.css" media="screen">
   <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+  <link rel="stylesheet" href="/css/diary.css" media="screen">
 
   <link rel="icon" href="/images/avatar.jpg">
 </head>
 
-<body class="preload-transitions colorscheme-auto" data-nav="/">
+<body class="preload-transitions colorscheme-auto" data-nav="/diary/">
 
   <div class="float-container">
     <a id="dark-mode-toggle" class="colorscheme-toggle">
@@ -41,6 +41,9 @@
             <a class="navigation-link" href="/posts/">Blog</a>
           </li>
           <li class="navigation-item">
+            <a class="navigation-link" href="/diary/">Diary</a>
+          </li>
+          <li class="navigation-item">
             <a class="navigation-link" href="/about/">About</a>
           </li>
         </ul>
@@ -48,36 +51,12 @@
     </nav>
 
     <div class="content">
-      <section class="container centered">
-        <div class="about">
-          <div class="avatar"><img src="/images/avatar.jpg" alt="avatar"></div>
-          <h1>林诚松</h1>
-          <p class="home-tagline">深度学习 · 遥感 · 地质工程</p>
-          <ul>
-            <li>
-              <a href="https://github.com/rinshaoshu" aria-label="Github" target="_blank" rel="noopener">
-                <i class="fa-brands fa-github fa-2x" aria-hidden="true"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="container home-doors">
-        <div class="door door-blog">
-          <a class="door-head" href="/posts/">
-            <span class="door-name">Blog</span>
-            <span class="door-desc">研究笔记与技术记录</span>
-          </a>
-          <ul class="door-list" id="home-post-list"></ul>
-        </div>
-        <div class="door door-diary">
-          <a class="door-head" href="/diary/">
-            <span class="door-name">Diary</span>
-            <span class="door-desc">每日记录与生活手账</span>
-          </a>
-          <ul class="door-list" id="home-diary-list"></ul>
-        </div>
+      <section class="container diary-index">
+        <header>
+          <h1 class="title">Diary</h1>
+          <p class="subtitle">不追求完整，只求留下痕迹。</p>
+        </header>
+        <ul id="diary-list" class="diary-timeline"></ul>
       </section>
     </div>
 

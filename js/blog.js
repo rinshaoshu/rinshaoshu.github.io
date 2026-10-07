@@ -15,6 +15,7 @@ const SITE = {
   email: 'rinshaoshu@163.com',
   nav: [
     { text: 'Blog', href: '/posts/' },
+    { text: 'Diary', href: '/diary/' },
     { text: 'About', href: '/about/' }
   ]
 };
@@ -73,6 +74,50 @@ const POSTS = [
   }
 ];
 
+// ---------- 日记列表（按日期倒序，最新的在最上面） ----------
+// 新增日记：在最上面加一条，并新建 diary/<slug>/index.html
+const DIARIES = [
+  {
+    slug: '2026-10-07',
+    title: '开始记日记',
+    date: '2026-10-07',
+    mood: '晴'
+  }
+];
+
+// ---------- 板块专属样式：按 body[data-nav] 自动注入对应 CSS ----------
+(function loadSectionCSS() {
+  const nav = document.body.getAttribute('data-nav') || '/';
+  const map = {
+    '/posts/': '/css/blog.css',
+    '/': '/css/home.css',
+    '/about/': '/css/home.css',
+    '/diary/': '/css/diary.css'
+  };
+  const href = map[nav];
+  if (!href) return;
+  // 已在 HTML 中静态引用的不重复注入
+  if (document.querySelector('link[href="' + href + '"]')) return;
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = href;
+  link.media = 'screen';
+  document.head.appendChild(link);
+})();
+
+// ---------- 导航渲染（由 SITE.nav 统一生成，全站一致） ----------
+(function renderNav() {
+  const list = document.querySelector('.navigation-list');
+  if (!list) return;
+  list.innerHTML = SITE.nav.map(function (item) {
+    return (
+      '<li class="navigation-item">' +
+      '<a class="navigation-link" href="' + item.href + '">' + item.text + '</a>' +
+      '</li>'
+    );
+  }).join('');
+})();
+
 // ---------- 文章列表渲染 ----------
 (function renderPostList() {
   const box = document.getElementById('post-list');
@@ -82,9 +127,69 @@ const POSTS = [
       '<li>' +
       '<span class="date">' + p.date + '</span>' +
       '<a class="title" href="/posts/' + p.slug + '/">' + p.title + '</a>' +
+      '<span class="meta">' +
+      '<span class="category-chip">' + p.category + '</span>' +
+      p.tags.map(function (t) { return '<span class="tag-chip">' + t + '</span>'; }).join('') +
+      '</span>' +
       '</li>'
     );
   }).join('');
+})();
+
+// ---------- 日记列表渲染（时间轴卡片式） ----------
+(function renderDiaryList() {
+  const box = document.getElementById('diary-list');
+  if (!box) return;
+  box.innerHTML = DIARIES.map(function (d) {
+    const parts = d.date.split('-');
+    return (
+      '<li class="diary-item">' +
+      '<div class="diary-date">' +
+      '<span class="day">' + parts[2] + '</span>' +
+      '<span class="ym">' + parts[0] + '.' + parts[1] + '</span>' +
+      '</div>' +
+      '<a class="diary-card" href="/diary/' + d.slug + '/">' +
+      '<h2>' + d.title + '</h2>' +
+      (d.mood ? '<span class="mood">' + d.mood + '</span>' : '') +
+      '</a>' +
+      '</li>'
+    );
+  }).join('');
+})();
+
+// ---------- 日记正文页：大日期横幅 + 星期自动填充 ----------
+(function renderDiaryBanner() {
+  const banner = document.querySelector('.diary-banner time');
+  if (!banner) return;
+  const dateStr = banner.getAttribute('datetime');
+  if (!dateStr) return;
+  const d = new Date(dateStr + 'T00:00:00');
+  if (isNaN(d)) return;
+  const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+  const wd = document.querySelector('.diary-banner .weekday');
+  if (wd) wd.textContent = '星期' + weekdays[d.getDay()];
+  const bigDay = document.querySelector('.diary-banner .big-day');
+  if (bigDay) bigDay.textContent = d.getDate();
+  const bigYm = document.querySelector('.diary-banner .big-ym');
+  if (bigYm) bigYm.textContent = d.getFullYear() + ' 年 ' + (d.getMonth() + 1) + ' 月';
+})();
+
+// ---------- 首页入口卡：最新 3 篇文章 / 3 篇日记 ----------
+(function renderHomeLists() {
+  function fill(id, items, base) {
+    const box = document.getElementById(id);
+    if (!box) return;
+    box.innerHTML = items.slice(0, 3).map(function (p) {
+      return (
+        '<li><a href="' + base + p.slug + '/">' +
+        '<span class="item-date">' + p.date.slice(5) + '</span>' +
+        '<span class="item-title">' + p.title + '</span>' +
+        '</a></li>'
+      );
+    }).join('');
+  }
+  fill('home-post-list', POSTS, '/posts/');
+  fill('home-diary-list', DIARIES, '/diary/');
 })();
 
 // ---------- 页脚年份 ----------

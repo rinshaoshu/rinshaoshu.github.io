@@ -1,0 +1,473 @@
+/* ============================================================
+ * Diary 板块专属样式（手账风）
+ * 仅在 /diary/ 页面引用，不影响 Blog 板块
+ * ============================================================ */
+
+/* ---------- 日记列表页：左侧时间轴 ---------- */
+.diary-index header .subtitle {
+  color: #8a6d2f;
+  font-style: italic;
+  margin-top: 0.4rem;
+}
+
+.diary-timeline {
+  position: relative;
+  margin: 3.2rem 0;
+  padding: 0 0 0 12.5rem;
+  list-style: none;
+}
+
+.diary-timeline::before {
+  content: '';
+  position: absolute;
+  left: 10.6rem;
+  top: 1rem;
+  bottom: 1rem;
+  width: 2px;
+  background: linear-gradient(to bottom, #e6d5ac, #d9b96a, #e6d5ac);
+  border-radius: 1px;
+}
+
+.diary-item {
+  position: relative;
+  margin-bottom: 2.4rem;
+  display: flex;
+  align-items: stretch;
+}
+
+/* 时间轴左侧的大号日期 */
+.diary-date {
+  position: absolute;
+  right: 100%;
+  margin-right: 3.4rem;
+  top: 1.2rem;
+  width: 8.4rem;
+  text-align: center;
+}
+
+.diary-date .day {
+  display: block;
+  font-size: 3.4rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #b08a2e;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.diary-date .ym {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 1.2rem;
+  letter-spacing: 0.1em;
+  color: #a08c5b;
+}
+
+/* 时间轴圆点 */
+.diary-item::before {
+  content: '';
+  position: absolute;
+  left: -2.45rem;
+  top: 2.1rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: #d9a441;
+  border: 3px solid #fdf8ec;
+  box-shadow: 0 0 0 2px #d9a441;
+}
+
+/* 日记卡片 */
+.diary-card {
+  flex: 1;
+  display: block;
+  background: #fffdf7;
+  border: 1px solid #efe4c8;
+  border-radius: 1.2rem;
+  padding: 1.8rem 2.2rem;
+  box-shadow: 0 2px 10px rgba(140, 110, 40, 0.08);
+  text-decoration: none;
+}
+
+.diary-card:hover,
+.diary-card:focus {
+  text-decoration: none;
+}
+
+.diary-card h2 {
+  margin: 0 0 0.8rem;
+  font-size: 2rem;
+  color: #3d331f;
+}
+
+.diary-card .mood {
+  display: inline-block;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #8a6d2f;
+  background: #f7ecd2;
+  border-radius: 1rem;
+  padding: 0.2rem 1.2rem;
+}
+
+/* ---------- 日记正文页：信纸风 ---------- */
+.diary-entry article {
+  background: #fffdf7;
+  border: 1px solid #efe4c8;
+  border-radius: 1.2rem;
+  padding: 3.2rem 3.6rem;
+  box-shadow: 0 4px 18px rgba(140, 110, 40, 0.10);
+}
+
+/* 顶部大日期横幅 */
+.diary-banner {
+  display: flex;
+  align-items: baseline;
+  gap: 1.6rem;
+  padding-bottom: 1.6rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px dashed #e0cf9f;
+}
+
+.diary-banner .big-day {
+  font-size: 5.6rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #b08a2e;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.diary-banner .big-ym {
+  font-size: 1.6rem;
+  letter-spacing: 0.1em;
+  color: #a08c5b;
+}
+
+.diary-banner .weekday {
+  font-size: 1.4rem;
+  color: #b08a2e;
+  background: #f7ecd2;
+  border-radius: 1rem;
+  padding: 0.2rem 1.2rem;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.diary-entry .post-title .title {
+  font-family: Georgia, 'Times New Roman', 'Songti SC', 'SimSun', serif;
+}
+
+.diary-entry .post-meta {
+  color: #a08c5b;
+}
+
+.diary-entry .post-meta a {
+  color: #b08a2e;
+}
+
+/* ---------- 日记正文页：模板板块 ---------- */
+.diary-sections {
+  margin-top: 2.4rem;
+}
+
+.diary-section {
+  background: #fffdf7;
+  border: 1px solid #efe4c8;
+  border-radius: 1.2rem;
+  padding: 1.8rem 2.2rem;
+  margin-bottom: 1.6rem;
+  box-shadow: 0 2px 10px rgba(140, 110, 40, 0.06);
+}
+
+.diary-section:hover {
+  box-shadow: 0 4px 14px rgba(140, 110, 40, 0.10);
+}
+
+.diary-section-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #6b5a2e;
+}
+
+.diary-section-title .fa-solid {
+  color: #b08a2e;
+  font-size: 1.6rem;
+  width: 2rem;
+  text-align: center;
+}
+
+.diary-section .placeholder {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.7;
+  color: #b3a68a;
+  font-style: italic;
+}
+
+/* 可选提醒：灰色常驻提示 */
+.diary-reminder {
+  margin: 2.4rem 0 0;
+  padding-top: 1.6rem;
+  border-top: 1px dashed #e0cf9f;
+}
+
+.diary-reminder-label {
+  font-size: 1.2rem;
+  color: #a08c5b;
+  margin-bottom: 0.8rem;
+}
+
+.diary-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.diary-tag {
+  display: inline-block;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #9e8e6e;
+  background: transparent;
+  border: 1px dashed #d6c49a;
+  border-radius: 1rem;
+  padding: 0.2rem 1.2rem;
+  cursor: default;
+  user-select: none;
+}
+
+.diary-tag:hover {
+  color: #8a6d2f;
+  border-color: #b08a2e;
+}
+
+/* ---------- 移动端适配 ---------- */
+@media only screen and (max-width: 768px) {
+  .diary-timeline {
+    padding-left: 2.4rem;
+  }
+  .diary-timeline::before {
+    left: 0.5rem;
+  }
+  .diary-item {
+    display: block;
+  }
+  .diary-item::before {
+    left: -2.35rem;
+    top: 0.6rem;
+  }
+  .diary-date {
+    position: static;
+    width: auto;
+    text-align: left;
+    margin: 0 0 0.6rem 0;
+  }
+  .diary-date .day {
+    display: inline;
+    font-size: 2rem;
+  }
+  .diary-date .ym {
+    display: inline;
+    margin-left: 0.6rem;
+  }
+  .diary-entry article {
+    padding: 2rem 1.6rem;
+  }
+  .diary-banner .big-day {
+    font-size: 4rem;
+  }
+  .diary-section {
+    padding: 1.4rem 1.6rem;
+  }
+  .diary-tags {
+    gap: 0.4rem;
+  }
+  .diary-tag {
+    font-size: 1.1rem;
+    padding: 0.1rem 1rem;
+  }
+}
+
+/* ---------- 深色模式 ---------- */
+body.colorscheme-dark .diary-index header .subtitle {
+  color: #c9a94f;
+}
+body.colorscheme-dark .diary-timeline::before {
+  background: linear-gradient(to bottom, #4a3d20, #8a6d2f, #4a3d20);
+}
+body.colorscheme-dark .diary-date .day {
+  color: #d9a441;
+}
+body.colorscheme-dark .diary-date .ym {
+  color: #8a734a;
+}
+body.colorscheme-dark .diary-item::before {
+  background: #d9a441;
+  border-color: #212121;
+  box-shadow: 0 0 0 2px #8a6d2f;
+}
+body.colorscheme-dark .diary-card {
+  background: #28251c;
+  border-color: #453b24;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+body.colorscheme-dark .diary-card:hover,
+body.colorscheme-dark .diary-card:focus {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+body.colorscheme-dark .diary-card h2 {
+  color: #e8ddc2;
+}
+body.colorscheme-dark .diary-card .mood {
+  color: #d9b96a;
+  background: #3a3220;
+}
+body.colorscheme-dark .diary-entry article {
+  background: #28251c;
+  border-color: #453b24;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+}
+body.colorscheme-dark .diary-banner {
+  border-bottom-color: #453b24;
+}
+body.colorscheme-dark .diary-banner .big-day {
+  color: #d9a441;
+}
+body.colorscheme-dark .diary-banner .big-ym {
+  color: #8a734a;
+}
+body.colorscheme-dark .diary-banner .weekday {
+  color: #d9b96a;
+  background: #3a3220;
+}
+body.colorscheme-dark .diary-entry .post-meta {
+  color: #8a734a;
+}
+body.colorscheme-dark .diary-entry .post-meta a {
+  color: #d9a441;
+}
+body.colorscheme-dark .diary-section {
+  background: #28251c;
+  border-color: #453b24;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+body.colorscheme-dark .diary-section:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+body.colorscheme-dark .diary-section-title {
+  color: #d4c5a0;
+}
+body.colorscheme-dark .diary-section-title .fa-solid {
+  color: #d9a441;
+}
+body.colorscheme-dark .diary-section .placeholder {
+  color: #6b6a5e;
+}
+body.colorscheme-dark .diary-reminder {
+  border-top-color: #453b24;
+}
+body.colorscheme-dark .diary-reminder-label {
+  color: #8a734a;
+}
+body.colorscheme-dark .diary-tag {
+  color: #6b6a5e;
+  border-color: #453b24;
+}
+body.colorscheme-dark .diary-tag:hover {
+  color: #d9b96a;
+  border-color: #8a6d2f;
+}
+
+@media (prefers-color-scheme: dark) {
+  body.colorscheme-auto .diary-index header .subtitle {
+    color: #c9a94f;
+  }
+  body.colorscheme-auto .diary-timeline::before {
+    background: linear-gradient(to bottom, #4a3d20, #8a6d2f, #4a3d20);
+  }
+  body.colorscheme-auto .diary-date .day {
+    color: #d9a441;
+  }
+  body.colorscheme-auto .diary-date .ym {
+    color: #8a734a;
+  }
+  body.colorscheme-auto .diary-item::before {
+    background: #d9a441;
+    border-color: #212121;
+    box-shadow: 0 0 0 2px #8a6d2f;
+  }
+  body.colorscheme-auto .diary-card {
+    background: #28251c;
+    border-color: #453b24;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+  }
+  body.colorscheme-auto .diary-card:hover,
+  body.colorscheme-auto .diary-card:focus {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  }
+  body.colorscheme-auto .diary-card h2 {
+    color: #e8ddc2;
+  }
+  body.colorscheme-auto .diary-card .mood {
+    color: #d9b96a;
+    background: #3a3220;
+  }
+  body.colorscheme-auto .diary-entry article {
+    background: #28251c;
+    border-color: #453b24;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+  }
+  body.colorscheme-auto .diary-banner {
+    border-bottom-color: #453b24;
+  }
+  body.colorscheme-auto .diary-banner .big-day {
+    color: #d9a441;
+  }
+  body.colorscheme-auto .diary-banner .big-ym {
+    color: #8a734a;
+  }
+  body.colorscheme-auto .diary-banner .weekday {
+    color: #d9b96a;
+    background: #3a3220;
+  }
+  body.colorscheme-auto .diary-entry .post-meta {
+    color: #8a734a;
+  }
+  body.colorscheme-auto .diary-entry .post-meta a {
+    color: #d9a441;
+  }
+  body.colorscheme-auto .diary-section {
+    background: #28251c;
+    border-color: #453b24;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+  body.colorscheme-auto .diary-section:hover {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  }
+  body.colorscheme-auto .diary-section-title {
+    color: #d4c5a0;
+  }
+  body.colorscheme-auto .diary-section-title .fa-solid {
+    color: #d9a441;
+  }
+  body.colorscheme-auto .diary-section .placeholder {
+    color: #6b6a5e;
+  }
+  body.colorscheme-auto .diary-reminder {
+    border-top-color: #453b24;
+  }
+  body.colorscheme-auto .diary-reminder-label {
+    color: #8a734a;
+  }
+  body.colorscheme-auto .diary-tag {
+    color: #6b6a5e;
+    border-color: #453b24;
+  }
+  body.colorscheme-auto .diary-tag:hover {
+    color: #d9b96a;
+    border-color: #8a6d2f;
+  }
+}
