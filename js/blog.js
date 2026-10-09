@@ -24,6 +24,13 @@ const SITE = {
 // 新增文章：在最上面加一条，并新建 posts/<slug>/index.html
 const POSTS = [
   {
+    slug: 'research-meaning',
+    title: '当老师问我"你的研究有什么意义"时，我愣住了',
+    date: '2026-10-09',
+    category: '随笔',
+    tags: ['学术反思', '研究意义', '自我对话']
+  },
+  {
     slug: 'speak-it-clearly',
     title: '当我感到不安时，我会逼自己把话说清楚',
     date: '2026-10-05',
