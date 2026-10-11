@@ -85,6 +85,12 @@ const POSTS = [
 // 新增日记：在最上面加一条，并新建 diary/<slug>/index.html
 const DIARIES = [
   {
+    slug: '2026-10-11',
+    title: '每天稍微推一下，就够了',
+    date: '2026-10-11',
+    mood: '平稳'
+  },
+  {
     slug: '2026-10-10',
     title: '很好的开始，学着放过自己',
     date: '2026-10-10',
